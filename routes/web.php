@@ -11,6 +11,72 @@
 |
 */
 
-Route::get('/', function () {
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\Route;
+
+Route::any('/', function () {
     return view('welcome');
+});
+
+Route::any('/request-using-di', function (Request $request) {
+    return $request->method();
+});
+
+Route::any('/request-using-facade', function () {
+    return FacadesRequest::method();
+});
+
+Route::any('/request-using-helper', function () {
+    return request()->method();
+});
+
+Route::any('/get-all-request-input', function (Request $request) {
+    return $request->all();
+});
+
+Route::any('/get-specific-input', function (Request $request) {
+    return $request->get('email');
+});
+
+Route::any('/get-specific-value', function (Request $request) {
+    return $request->input('name');
+});
+
+Route::any('/get-specific-query-string-value', function (Request $request) {
+    return $request->query('source');
+});
+
+Route::any('/get-only', function (Request $request) {
+    return $request->only('name', 'email');
+});
+
+Route::any('/get-except', function (Request $request) {
+    return $request->except('name');
+});
+
+Route::any('/get-using-magic-properties', function (Request $request) {
+    return $request->email;
+});
+
+Route::any('/check-input-present', function (Request $request) {
+    // if($request->has('password')) {
+    if ($request->has(['password', 'password_confirmation'])) {
+        return 'true';
+    }
+    return 'false';
+});
+
+Route::any('/check-any-input-present', function (Request $request) {
+    if ($request->hasAny(['password', 'name'])) {
+        return 'true';
+    }
+    return 'false';
+});
+
+Route::any('/check-input-present-and-filled', function (Request $request) {
+    if ($request->filled('password')) {
+        return 'true';
+    }
+    return 'false';
 });
