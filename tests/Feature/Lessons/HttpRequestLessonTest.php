@@ -79,6 +79,19 @@ class HttpRequestLessonTest extends TestCase
     }
 
     /** @test */
+    public function get_specific_value_or_default_from_request()
+    {
+        $response = $this
+            ->post('/get-specific-value-or-default?source=facebook', [
+                'email' => 'jane@mail.com'
+            ]);
+
+        $response
+            ->assertOk()
+            ->assertSee('Undefined');
+    }
+
+    /** @test */
     public function get_specific_query_string_value_form_request()
     {
         $response = $this
@@ -151,7 +164,7 @@ class HttpRequestLessonTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSee('false');
+            ->assertSee('password and password_confirmation must be present.');
     }
 
     /** @test */
@@ -169,7 +182,7 @@ class HttpRequestLessonTest extends TestCase
     }
 
     /** @test */
-    public function assert_input_present_and_filled()
+    public function check_input_present_and_filled()
     {
         $response = $this
             ->post('/check-input-present-and-filled?source=facebook', [
@@ -180,6 +193,20 @@ class HttpRequestLessonTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSee('false');
+            ->assertSee('the password field is missing or empty');
+    }
+
+    /** @test */
+    public function check_input_missing_in_the_request()
+    {
+        $response = $this
+            ->post('/check-input-missing?source=facebook', [
+                'name' => 'Jane Jones',
+                'email' => 'jane@mail.com'
+            ]);
+
+        $response
+            ->assertOk()
+            ->assertSee('the password field is not present in the request');
     }
 }

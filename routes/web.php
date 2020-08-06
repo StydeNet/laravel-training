@@ -43,6 +43,10 @@ Route::any('/get-specific-value', function (Request $request) {
     return $request->input('name');
 });
 
+Route::any('/get-specific-value-or-default', function (Request $request) {
+    return $request->input('name', 'Undefined');
+});
+
 Route::any('/get-specific-query-string-value', function (Request $request) {
     return $request->query('source');
 });
@@ -62,9 +66,9 @@ Route::any('/get-using-magic-properties', function (Request $request) {
 Route::any('/check-input-present', function (Request $request) {
     // if($request->has('password')) {
     if ($request->has(['password', 'password_confirmation'])) {
-        return 'true';
+        return 'the request has password and confirmation.';
     }
-    return 'false';
+    return 'password and password_confirmation must be present.';
 });
 
 Route::any('/check-any-input-present', function (Request $request) {
@@ -76,7 +80,14 @@ Route::any('/check-any-input-present', function (Request $request) {
 
 Route::any('/check-input-present-and-filled', function (Request $request) {
     if ($request->filled('password')) {
-        return 'true';
+        return 'the password field is present and filled';
     }
-    return 'false';
+    return 'the password field is missing or empty';
+});
+
+Route::any('/check-input-missing', function (Request $request) {
+    if ($request->missing('password')) {
+        return 'the password field is not present in the request';
+    }
+    return 'the password field is present in the request';
 });
