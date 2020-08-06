@@ -13,10 +13,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->times(100)->create()->each(function ($user) {
+        // Users with profile
+        factory(User::class)->times(10)->create()->each(function ($user) {
             factory(UserProfile::class)->create([
                 'user_id' => $user->id,
             ]);
         });
+
+        // Users without profile
+        factory(User::class)->times(10)->create();
     }
 }
