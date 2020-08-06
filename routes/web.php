@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', [HomeController::class, 'index']);
+
+Route::resource('user', UserController::class);
+
+Route::get('/health-check', HealthCheckController::class);
