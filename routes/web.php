@@ -11,6 +11,19 @@
 |
 */
 
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/route-using-closure', function () {
+    return 'Hello world!';
+});
+
+Route::get('/route-using-controller-string', 'HomeController@index');
+
+Route::get('/route-using-controller-class', [HomeController::class, 'index']);
+
+Route::get('/route-using-single-action-controller', 'HomeController');
