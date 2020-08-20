@@ -11,6 +11,14 @@
 |
 */
 
+use App\User;
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('has-one', function () {
+    $user = User::first();
+
+    return $user->profile;
 });
