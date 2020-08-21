@@ -15,8 +15,6 @@ class UserProfileTest extends TestCase
      */
     function a_user_profile_belongs_to_a_user()
     {
-        $this->markTestIncomplete();
-
         $user = factory(User::class)->create();
         $userProfile = factory(UserProfile::class)->create([
             'website' => 'https://styde.net',
