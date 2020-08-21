@@ -13,12 +13,10 @@ class UserTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede obtener el perfil de usuario asociado a un usuario
+     * @testdox Puede obtener el perfil de usuario asociado a un usuario.
      */
     function can_get_the_user_profile_associated_to_a_user()
     {
-        $this->markTestIncomplete();
-
         $user = factory(User::class)->create();
         $userProfile = factory(UserProfile::class)->create([
             'website' => 'https://styde.net',
