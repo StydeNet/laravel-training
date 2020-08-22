@@ -31,7 +31,10 @@ class UserTest extends TestCase
         $this->assertSame('https://styde.net', $user->profile->website);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @testdox Un usuario tiene muchos posts.
+     */
     function a_user_has_many_posts()
     {
         $user = factory(User::class)->create();
@@ -47,6 +50,7 @@ class UserTest extends TestCase
         $this->assertCount(2, $user->posts);
 
         $posts = $user->posts->all();
+        $this->assertTrue(is_array($posts));
         $this->assertTrue($posts[0]->is($firstPost));
         $this->assertTrue($posts[1]->is($secondPost));
     }
