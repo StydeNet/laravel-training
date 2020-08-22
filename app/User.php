@@ -10,8 +10,6 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $primaryKey = 'pk';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -41,6 +39,6 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne(UserProfile::class, 'user_fk');
+        return $this->hasOne(UserProfile::class);
     }
 }

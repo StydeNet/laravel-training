@@ -17,7 +17,7 @@ class PostTest extends TestCase
     {
         $user = factory(User::class)->create();
         $post = factory(Post::class)->create([
-            'author_id' => $user->pk,
+            'author_id' => $user->id,
         ]);
 
         $this->assertInstanceOf(BelongsTo::class, $post->author());

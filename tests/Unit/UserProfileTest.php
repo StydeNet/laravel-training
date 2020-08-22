@@ -18,7 +18,7 @@ class UserProfileTest extends TestCase
         $user = factory(User::class)->create();
         $userProfile = factory(UserProfile::class)->create([
             'website' => 'https://styde.net',
-            'user_fk' => $user->pk,
+            'user_id' => $user->id,
         ]);
 
         $this->assertInstanceOf(BelongsTo::class, $userProfile->user());
