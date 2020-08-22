@@ -44,11 +44,13 @@ class PostTest extends TestCase
             'title' => 'PHP',
         ]);
 
+        $post->categories()->sync([$laravel->id, $php->id]);
+
         $this->assertInstanceOf(BelongsToMany::class, $post->categories());
         $this->assertInstanceOf(Collection::class, $post->categories);
 
         $this->assertCount(2, $post->categories);
 
-        $this->assertSame(['Laravel', 'PHP'], $post->categories->pluck('title'));
+        $this->assertSame(['Laravel', 'PHP'], $post->categories->pluck('title')->all());
     }
 }
