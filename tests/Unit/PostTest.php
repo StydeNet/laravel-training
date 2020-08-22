@@ -15,11 +15,9 @@ class PostTest extends TestCase
      */
     function a_post_belongs_to_an_author()
     {
-        $this->markTestIncomplete();
-
         $user = factory(User::class)->create();
         $post = factory(Post::class)->create([
-            'author_id' => $user->id,
+            'author_id' => $user->pk,
         ]);
 
         $this->assertInstanceOf(BelongsTo::class, $post->author());

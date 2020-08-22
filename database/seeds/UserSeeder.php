@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         // Users with profile
         factory(User::class)->times(10)->create()->each(function ($user) {
             factory(UserProfile::class)->create([
-                'user_id' => $user->id,
+                'user_fk' => $user->pk,
             ]);
         });
 

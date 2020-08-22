@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
 
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')
-                ->references('id')
+                ->references('pk')
                 ->on('users');
 
             $table->timestamps();
