@@ -44,7 +44,8 @@ class PostTest extends TestCase
             'title' => 'PHP',
         ]);
 
-        $post->categories()->sync([$laravel->id, $php->id]);
+//        $post->categories()->sync([$laravel->id, $php->id]);
+        $post->addCategories($laravel, $php);
 
         $this->assertInstanceOf(BelongsToMany::class, $post->categories());
         $this->assertInstanceOf(Collection::class, $post->categories);

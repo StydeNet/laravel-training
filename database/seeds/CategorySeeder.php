@@ -12,6 +12,10 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        $php = Category::create([
+            'title' => 'PHP',
+        ]);
+
         $laravel = Category::create([
             'title' => 'Laravel',
         ]);
