@@ -70,6 +70,11 @@ class UserTest extends TestCase
             'published_at' => null,
         ]);
 
+        $scheduled = factory(Post::class)->create([
+            'author_id' => $user->id,
+            'published_at' => now()->addDay(),
+        ]);
+
         $this->assertInstanceOf(HasMany::class, $user->publishedPosts());
         $this->assertInstanceOf(Collection::class, $user->publishedPosts);
         $this->assertCount(1, $user->publishedPosts);
