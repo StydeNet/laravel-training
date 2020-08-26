@@ -16,15 +16,33 @@ class PostSeeder extends Seeder
         $user = User::first();
 
         $post = Post::create([
-            'title' => 'Convenciones con Eloquent ORM',
+            'title' => 'Post en borrador',
             'content' => 'En este videotutorial...',
             'author_id' => $user->id,
+            'published_at' => null,
         ]);
 
         $post = Post::create([
-            'title' => 'Relaciones de muchos a muchos en Eloquent ORM',
+            'title' => 'Post publicado',
             'content' => 'En este videotutorial...',
             'author_id' => $user->id,
+            'published_at' => now(),
+        ]);
+
+        $post = Post::create([
+            'title' => 'Post destacado publicado',
+            'content' => 'En este videotutorial...',
+            'featured' => true,
+            'author_id' => $user->id,
+            'published_at' => now(),
+        ]);
+
+        $post = Post::create([
+            'title' => 'Post destacado programado',
+            'content' => 'En este videotutorial...',
+            'featured' => true,
+            'author_id' => $user->id,
+            'published_at' => now()->addDay(),
         ]);
     }
 }

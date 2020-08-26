@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
 
             $table->string('title');
             $table->mediumText('content');
+            $table->boolean('featured')->default(false);
 
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')
