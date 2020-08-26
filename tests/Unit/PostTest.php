@@ -37,6 +37,10 @@ class PostTest extends TestCase
     {
         $post = factory(Post::class)->create();
 
+        $eloquent = factory(Category::class)->create([
+            'title' => 'Eloquent',
+        ]);
+
         $laravel = factory(Category::class)->create([
             'title' => 'Laravel',
         ]);
@@ -44,14 +48,14 @@ class PostTest extends TestCase
             'title' => 'PHP',
         ]);
 
-//        $post->categories()->sync([$laravel->id, $php->id]);
+        $post->categories()->sync($eloquent);
         $post->addCategories($laravel, $php);
 
         $this->assertInstanceOf(BelongsToMany::class, $post->categories());
         $this->assertInstanceOf(Collection::class, $post->categories);
 
-        $this->assertCount(2, $post->categories);
+        $this->assertCount(3, $post->categories);
 
-        $this->assertSame(['Laravel', 'PHP'], $post->categories->pluck('title')->all());
+        $this->assertSame(['Eloquent', 'Laravel', 'PHP'], $post->categories->pluck('title')->all());
     }
 }

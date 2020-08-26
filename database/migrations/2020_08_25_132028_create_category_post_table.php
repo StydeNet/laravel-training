@@ -13,7 +13,7 @@ class CreateCategoryPostTable extends Migration
      */
     public function up()
     {
-        Schema::create('category_post', function (Blueprint $table) {
+        Schema::create('post_category', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')
                 ->references('id')
@@ -24,7 +24,11 @@ class CreateCategoryPostTable extends Migration
                 ->references('id')
                 ->on('posts');
 
+            $table->boolean('featured')->default(false);
+
             $table->unique(['category_id', 'post_id']);
+
+            $table->timestamps();
         });
     }
 

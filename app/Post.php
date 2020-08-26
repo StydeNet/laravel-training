@@ -16,11 +16,13 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'post_category')
+            ->withPivot(['featured'])
+            ->withTimestamps();
     }
 
     public function addCategories(Category ...$categories)
     {
-        $this->categories()->sync(new Collection($categories));
+        $this->categories()->syncWithoutDetaching(new Collection($categories));
     }
 }
