@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
                 ->on('users');
 
             $table->timestamps();
+            $table->timestamp('published_at')->nullable();
         });
     }
 
