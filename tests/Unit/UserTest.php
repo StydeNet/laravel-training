@@ -18,7 +18,7 @@ class UserTest extends TestCase
      * @test
      * @testdox Puede obtener el perfil de usuario asociado a un usuario.
      */
-    function can_get_the_user_profile_associated_to_a_user()
+    function can_get_the_profile_associated_to_a_user()
     {
         $user = factory(User::class)->create();
         $userProfile = factory(UserProfile::class)->create([
@@ -29,6 +29,22 @@ class UserTest extends TestCase
         $this->assertInstanceOf(UserProfile::class, $user->profile);
         $this->assertTrue($userProfile->is($user->profile));
         $this->assertSame('https://styde.net', $user->profile->website);
+    }
+
+    /**
+     * @test
+     * @testdox A los usuarios sin perfil se les asigna un perfil predeterminado.
+     */
+    function users_without_profile_are_assigned_a_default_profile()
+    {
+        $user = factory(User::class)->create([
+            'name' => 'Duilio',
+        ]);
+
+        $this->assertInstanceOf(UserProfile::class, $user->profile);
+        $this->assertFalse($user->profile->exists);
+        $this->assertSame('Developer', $user->profile->job_title);
+        $this->assertSame("https://styde.net/perfil/duilio", $user->profile->website);
     }
 
     /**
@@ -55,7 +71,10 @@ class UserTest extends TestCase
         $this->assertTrue($posts[1]->is($secondPost));
     }
 
-    /** @test */
+    /**
+     * @test
+     * @testdox Obtiene los posts publicados de un usuario.
+     */
     function gets_the_published_posts_of_a_user()
     {
         $user = factory(User::class)->create();

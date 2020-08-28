@@ -30,6 +30,21 @@ class PostTest extends TestCase
 
     /**
      * @test
+     * @testdox A los posts sin autor se les asigna un autor predeterminado.
+     */
+    function posts_without_an_author_are_assigned_a_default_author()
+    {
+        $post = factory(Post::class)->create([
+            'author_id' => null,
+        ]);
+
+        $this->assertInstanceOf(User::class, $post->author);
+        $this->assertFalse($post->author->exists);
+        $this->assertSame('Styde', $post->author->name);
+    }
+
+    /**
+     * @test
      * @testdox Un post pertenece a muchas categorías (o un post tiene muchas categorías).
      */
     /** @test */
