@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->mediumText('content');
             $table->boolean('featured')->default(false);
 
-            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('author_id')->nullable();
             $table->foreign('author_id')
                 ->references('id')
                 ->on('users');
