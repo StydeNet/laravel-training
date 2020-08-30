@@ -73,4 +73,19 @@ class PostTest extends TestCase
 
         $this->assertSame(['Eloquent', 'Laravel', 'PHP'], $post->categories->pluck('title')->all());
     }
+
+    /**
+     * @test
+     * @testdox Obtiene el atributo 'featured' como booleano.
+     */
+    function gets_the_featured_attribute_as_boolean()
+    {
+        $this->markTestIncomplete();
+
+        $post = factory(Post::class)->create([
+            'featured' => 1,
+        ]);
+
+        $this->assertTrue($post->featured);
+    }
 }

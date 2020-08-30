@@ -38,13 +38,14 @@ class UserTest extends TestCase
     function users_without_profile_are_assigned_a_default_profile()
     {
         $user = factory(User::class)->create([
-            'name' => 'Duilio',
+            'first_name' => 'Duilio',
+            'last_name' => 'Palacios',
         ]);
 
         $this->assertInstanceOf(UserProfile::class, $user->profile);
         $this->assertFalse($user->profile->exists);
         $this->assertSame('Developer', $user->profile->job_title);
-        $this->assertSame("https://styde.net/perfil/duilio", $user->profile->website);
+        $this->assertSame("https://styde.net/perfil/duilio-palacios", $user->profile->website);
     }
 
     /**
@@ -98,5 +99,52 @@ class UserTest extends TestCase
         $this->assertInstanceOf(Collection::class, $user->publishedPosts);
         $this->assertCount(1, $user->publishedPosts);
         $this->assertTrue($user->publishedPosts->first()->is($published));
+    }
+
+    /**
+     * @test
+     * @testdox los correos electrónicos se almacenan en minúsculas.
+     */
+    function emails_are_stored_in_lowercase()
+    {
+        $this->markTestIncomplete();
+
+        $user = factory(User::class)->create([
+            'email' => 'DUILIO@STYDE.NET',
+        ]);
+
+        $this->assertSame('duilio@styde.net', $user->email);
+    }
+
+    /**
+     * @test
+     * @testdox Obtiene el nombre completo del usuario.
+     */
+    function gets_the_full_name_of_the_user()
+    {
+        $this->markTestIncomplete();
+
+        $user = factory(User::class)->create([
+            'first_name' => 'Duilio',
+            'last_name' => 'Palacios',
+        ]);
+
+        $this->assertSame('Duilio Palacios', $user->full_name);
+    }
+
+    /** @test */
+    function stores_configuration_options()
+    {
+        $this->markTestIncomplete();
+
+        $user = factory(User::class)->create([
+            'options' => [
+                'language' => 'es',
+                'theme' => 'dark',
+            ],
+        ]);
+
+        $this->assertSame('es', $user->options['language']);
+        $this->assertSame('dark', $user->options['theme']);
     }
 }
