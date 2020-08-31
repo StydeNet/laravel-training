@@ -86,4 +86,18 @@ class PostTest extends TestCase
 
         $this->assertTrue($post->featured);
     }
+
+    /**
+     * @test
+     * @testdox Obtiene el campo 'published_at' como una instancia de Carbon.
+     */
+    function gets_the_published_at_field_as_a_carbon_instance()
+    {
+        $post = factory(Post::class)->create([
+            'published_at' => '2020-08-31 12:00',
+        ]);
+
+        $this->assertInstanceOf(\Illuminate\Support\Carbon::class, $post->published_at);
+        $this->assertSame('2020-08-31 12:00', $post->published_at->__toString());
+    }
 }

@@ -129,10 +129,8 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function stores_configuration_options()
+    function stores_the_configuration_options_of_the_user()
     {
-        $this->markTestIncomplete();
-
         $user = factory(User::class)->create([
             'options' => [
                 'language' => 'es',
