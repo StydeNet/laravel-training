@@ -80,8 +80,6 @@ class PostTest extends TestCase
      */
     function gets_the_featured_attribute_as_boolean()
     {
-        $this->markTestIncomplete();
-
         $post = factory(Post::class)->create([
             'featured' => 1,
         ]);

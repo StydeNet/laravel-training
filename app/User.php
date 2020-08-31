@@ -41,7 +41,7 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(UserProfile::class)->withDefault(function ($profile) {
-            $profile->website = 'https://styde.net/perfil/'.Str::slug($this->name);
+            $profile->website = 'https://styde.net/perfil/'.Str::slug($this->full_name);
             $profile->job_title = 'Developer';
         });
     }
@@ -54,5 +54,15 @@ class User extends Authenticatable
     public function publishedPosts()
     {
         return $this->posts()->where('published_at', '<=', now());
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = strtolower($value);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 }

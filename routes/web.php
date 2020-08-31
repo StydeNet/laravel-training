@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('first-user', function () {
+    return User::first();
+});
+
 Route::get('has-one', function () {
     $user = User::first();
 

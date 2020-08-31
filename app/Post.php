@@ -27,4 +27,14 @@ class Post extends Model
     {
         $this->categories()->syncWithoutDetaching(new Collection($categories));
     }
+
+    public function getFeaturedAttribute($value)
+    {
+        return (bool) $value;
+    }
+
+    public function getIsPublishedAttribute()
+    {
+        return $this->published_at != null;
+    }
 }

@@ -107,8 +107,6 @@ class UserTest extends TestCase
      */
     function emails_are_stored_in_lowercase()
     {
-        $this->markTestIncomplete();
-
         $user = factory(User::class)->create([
             'email' => 'DUILIO@STYDE.NET',
         ]);
@@ -122,8 +120,6 @@ class UserTest extends TestCase
      */
     function gets_the_full_name_of_the_user()
     {
-        $this->markTestIncomplete();
-
         $user = factory(User::class)->create([
             'first_name' => 'Duilio',
             'last_name' => 'Palacios',
