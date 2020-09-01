@@ -13,6 +13,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        factory(User::class)->create([
+            'first_name' => 'Duilio',
+            'last_name' => 'Palacios',
+            'email' => 'duilio@styde.net',
+            'password' => bcrypt('password'),
+            'options' => [
+                'language' => 'es',
+                'theme' => 'dark',
+            ],
+        ]);
+
         // Users with profile
         factory(User::class)->times(10)->create()->each(function ($user) {
             factory(UserProfile::class)->create([

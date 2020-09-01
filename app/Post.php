@@ -9,6 +9,11 @@ class Post extends Model
 {
     protected $fillable = ['title', 'content'];
 
+    protected $casts = [
+        'featured' => 'bool',
+        'published_at' => 'datetime:d/m/Y H:i',
+    ];
+
     public function author()
     {
         return $this->belongsTo(User::class)->withDefault([
@@ -26,11 +31,6 @@ class Post extends Model
     public function addCategories(Category ...$categories)
     {
         $this->categories()->syncWithoutDetaching(new Collection($categories));
-    }
-
-    public function getFeaturedAttribute($value)
-    {
-        return (bool) $value;
     }
 
     public function getIsPublishedAttribute()
