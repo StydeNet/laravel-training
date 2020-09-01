@@ -100,4 +100,60 @@ class PostTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Support\Carbon::class, $post->published_at);
         $this->assertSame('2020-08-31 12:00:00', $post->published_at->__toString());
     }
+
+    /**
+     * @test
+     * @testdox Exporta el título, contenido, fecha y estado de publicación de los posts.
+     */
+    function exports_the_title_content_published_date_and_status_of_the_posts()
+    {
+        $post = factory(Post::class)->create([
+            'title' => 'Título del post',
+            'content' => 'Contenido del post',
+            'published_at' => '2020-09-01 12:00:00',
+        ]);
+
+        $expected = [
+            'title' => 'Título del post',
+            'content' => 'Contenido del post',
+            'published_at' => '01/09/2020 12:00',
+            'is_published' => true,
+        ];
+
+        $this->assertSame($expected, $post->toArray());
+        $this->assertSame(json_encode($expected), $post->toJson());
+    }
+
+    /**
+     * @test
+     * @testdox Exporta la información del autor del post.
+     */
+    function exports_the_posts_author_info()
+    {
+        $user = factory(User::class)->create([
+            'first_name' => 'Duilio',
+            'last_name' => 'Palacios',
+            'email' => 'duilio@styde.net',
+        ]);
+
+        factory(Post::class)->create([
+            'title' => 'Título del post',
+            'content' => 'Contenido del post',
+            'published_at' => '2020-09-01 12:00:00',
+            'author_id' => $user->id,
+        ]);
+
+        $post = Post::with('author')->first();
+
+        tap($post->toArray(), function ($postData) {
+            $this->assertArrayHasKey('author', $postData);
+
+            $expected = [
+                'first_name' => 'Duilio',
+                'last_name' => 'Palacios',
+                'email' => 'duilio@styde.net',
+            ];
+            $this->assertSame($expected, $postData['author']);
+        });
+    }
 }

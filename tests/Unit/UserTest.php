@@ -141,4 +141,25 @@ class UserTest extends TestCase
         $this->assertSame('es', $user->options['language']);
         $this->assertSame('dark', $user->options['theme']);
     }
+
+    /**
+     * @test
+     * @testdox Exporta el primer nombre, apellido y correo electrónico de los usuarios.
+     */
+    function exports_the_first_name_last_name_and_email_of_the_users()
+    {
+        $user = factory(User::class)->create([
+            'first_name' => 'Duilio',
+            'last_name' => 'Duilio',
+            'email' => 'duilio@styde.net',
+        ]);
+
+        $expected = [
+            'first_name' => 'Duilio',
+            'last_name' => 'Duilio',
+            'email' => 'duilio@styde.net',
+        ];
+        $this->assertSame($expected, $user->toArray());
+        $this->assertSame(json_encode($expected), $user->toJson());
+    }
 }
