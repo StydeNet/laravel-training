@@ -14,6 +14,10 @@ class Post extends Model
         'published_at' => 'datetime:d/m/Y H:i',
     ];
 
+    protected $visible = ['title', 'content', 'published_at', 'is_published', 'author'];
+
+    protected $appends = ['is_published'];
+
     public function author()
     {
         return $this->belongsTo(User::class)->withDefault([

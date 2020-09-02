@@ -150,13 +150,13 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->create([
             'first_name' => 'Duilio',
-            'last_name' => 'Duilio',
+            'last_name' => 'Palacios',
             'email' => 'duilio@styde.net',
         ]);
 
         $expected = [
             'first_name' => 'Duilio',
-            'last_name' => 'Duilio',
+            'last_name' => 'Palacios',
             'email' => 'duilio@styde.net',
         ];
         $this->assertSame($expected, $user->toArray());

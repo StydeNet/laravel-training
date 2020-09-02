@@ -20,6 +20,10 @@ class User extends Authenticatable
         'first_name', 'last_name', 'email', 'password', 'options'
     ];
 
+    protected $visible = ['first_name', 'last_name', 'email', 'posts'];
+
+    protected $appends = ['full_name'];
+
     /**
      * The attributes that should be hidden for arrays.
      *

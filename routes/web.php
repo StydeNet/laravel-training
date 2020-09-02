@@ -18,7 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('first-user', function () {
-    return User::first();
+    $user = User::with('posts')->first();
+
+    return $user;
 });
 
 Route::get('has-one', function () {
