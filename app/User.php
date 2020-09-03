@@ -66,6 +66,11 @@ class User extends Authenticatable
         $this->attributes['email'] = strtolower($value);
     }
 
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";

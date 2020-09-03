@@ -16,12 +16,27 @@ class UserSeeder extends Seeder
         factory(User::class)->create([
             'first_name' => 'Duilio',
             'last_name' => 'Palacios',
+            'email' => 'admin@styde.net',
+            'password' => bcrypt('password'),
+            'options' => [
+                'language' => 'es',
+                'theme' => 'dark',
+            ],
+            'api_token' => 'admin-test-token',
+            'role' => 'admin',
+        ]);
+
+        factory(User::class)->create([
+            'first_name' => 'Duilio',
+            'last_name' => 'Palacios',
             'email' => 'duilio@styde.net',
             'password' => bcrypt('password'),
             'options' => [
                 'language' => 'es',
                 'theme' => 'dark',
             ],
+            'api_token' => 'user-test-token',
+            'role' => 'user',
         ]);
 
         // Users with profile

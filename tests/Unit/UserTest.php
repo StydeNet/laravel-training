@@ -162,4 +162,19 @@ class UserTest extends TestCase
         $this->assertSame($expected, $user->toArray());
         $this->assertSame(json_encode($expected), $user->toJson());
     }
+
+    /**
+     * @test
+     * @testdox Verifica si el usuario es administrador.
+     */
+    function verifies_if_the_user_is_an_admin()
+    {
+        $user = factory(User::class)->create();
+
+        $user->role = 'user';
+        $this->assertFalse($user->isAdmin());
+
+        $user->role = 'admin';
+        $this->assertTrue($user->isAdmin());
+    }
 }
