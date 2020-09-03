@@ -35,8 +35,6 @@ class ShowUserTest extends TestCase
      */
     function users_can_see_the_details_of_another_user()
     {
-        $this->markTestIncomplete();
-
         $this->actingAs($this->user, 'api');
 
         $this->getJson("api/user/{$this->admin->id}")
@@ -55,8 +53,6 @@ class ShowUserTest extends TestCase
      */
     function admins_can_see_the_details_of_another_user_including_the_email()
     {
-        $this->markTestIncomplete();
-
         $this->actingAs($this->admin, 'api');
 
         $this->getJson("api/user/{$this->user->id}")
@@ -68,5 +64,15 @@ class ShowUserTest extends TestCase
                     'email' => 'jane.doe@example.com',
                 ]
             ]);
+    }
+
+    /**
+     * @test
+     * @testdox Los usuarios anónimos no pueden ver la lista de usuarios.
+     */
+    function guests_cannot_see_the_details_of_any_user()
+    {
+        $this->getJson("api/user/{$this->user->id}")
+            ->assertUnauthorized();
     }
 }

@@ -26,34 +26,33 @@ class ListUsersTest extends TestCase
             'first_name' => 'Jane',
             'last_name' => 'Doe',
             'email' => 'jane.doe@example.com',
+            'role' => 'user',
         ]);
     }
 
-    /**
-     * @test
-     * @testdox Los usuarios pueden ver la lista de usuarios.
-     */
-    function users_can_see_the_list_of_users()
-    {
-        $this->markTestIncomplete();
-
-        $this->actingAs($this->user, 'api');
-
-        $this->getJson('api/users')
-            ->assertOk()
-            ->assertExactJson([
-                [
-                    'first_name' => 'John',
-                    'last_name' => 'Doe',
-                    'email' => 'john.doe@example.com',
-                ],
-                [
-                    'first_name' => 'Jane',
-                    'last_name' => 'Doe',
-                    'email' => 'jane.doe@example.com',
-                ],
-            ]);
-    }
+//    /**
+//     * @test
+//     * @testdox Los usuarios pueden ver la lista de usuarios.
+//     */
+//    function users_can_see_the_list_of_users()
+//    {
+//        $this->actingAs($this->user, 'api');
+//
+//        $this->getJson('api/users')
+//            ->assertOk()
+//            ->assertExactJson([
+//                [
+//                    'first_name' => 'John',
+//                    'last_name' => 'Doe',
+//                    'email' => 'john.doe@example.com',
+//                ],
+//                [
+//                    'first_name' => 'Jane',
+//                    'last_name' => 'Doe',
+//                    'email' => 'jane.doe@example.com',
+//                ],
+//            ]);
+//    }
 
     /**
      * @test
@@ -61,8 +60,6 @@ class ListUsersTest extends TestCase
      */
     function users_can_see_the_list_of_users_wrapped_in_data()
     {
-        $this->markTestIncomplete();
-
         $this->actingAs($this->user, 'api');
 
         $this->getJson('api/users')
@@ -78,7 +75,7 @@ class ListUsersTest extends TestCase
                         'last_name' => 'Doe',
                     ],
                 ],
-                'total' => 2,
+                //'total' => 2,
             ]);
     }
 
@@ -130,8 +127,6 @@ class ListUsersTest extends TestCase
      */
     function admins_can_see_the_list_of_users_including_emails()
     {
-        $this->markTestIncomplete();
-
         $this->actingAs($this->admin, 'api');
 
         $this->getJson('api/users')
@@ -149,7 +144,7 @@ class ListUsersTest extends TestCase
                         'email' => 'jane.doe@example.com',
                     ],
                 ],
-                'total' => 2,
+//                'total' => 2,
             ]);
     }
 
@@ -159,8 +154,6 @@ class ListUsersTest extends TestCase
      */
     function guests_cannot_see_the_list_of_users()
     {
-        $this->markTestIncomplete();
-
         $this->getJson('api/users')
             ->assertUnauthorized();
     }

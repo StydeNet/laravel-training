@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
 
 /*
@@ -13,6 +14,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('users', function () {
+        $users = User::all();
+
+        if (auth()->user()->isAdmin()) {
+            $users->makeVisible('email');
+        }
+
+        return response([
+            'data' => $users,
+        ]);
+    });
+
+    Route::get('user/{user}', function (User $user) {
+        if (auth()->user()->isAdmin()) {
+            $user->makeVisible('email');
+        }
+
+        return response([
+            'data' => $user,
+        ]);
+    });
 });

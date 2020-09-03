@@ -20,10 +20,6 @@ class User extends Authenticatable
         'first_name', 'last_name', 'email', 'password', 'options'
     ];
 
-    protected $visible = ['first_name', 'last_name', 'email', 'posts'];
-
-    protected $appends = ['full_name'];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -74,5 +70,19 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function toArray()
+    {
+        $data = [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+        ];
+
+        if (auth()->check() && auth()->user()->isAdmin()) {
+            $data['email'] = $this->email;
+        }
+
+        return $data;
     }
 }
