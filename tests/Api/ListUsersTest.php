@@ -75,7 +75,7 @@ class ListUsersTest extends TestCase
                         'last_name' => 'Doe',
                     ],
                 ],
-                //'total' => 2,
+                'total' => 2,
             ]);
     }
 
@@ -85,8 +85,6 @@ class ListUsersTest extends TestCase
      */
     function users_can_see_the_paginated_list_of_users()
     {
-        $this->markTestIncomplete();
-
         $this->actingAs($this->user, 'api');
 
         $this->getJson('api/paged-users')
@@ -144,7 +142,7 @@ class ListUsersTest extends TestCase
                         'email' => 'jane.doe@example.com',
                     ],
                 ],
-//                'total' => 2,
+                'total' => 2,
             ]);
     }
 

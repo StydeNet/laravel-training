@@ -71,18 +71,4 @@ class User extends Authenticatable
     {
         return "{$this->first_name} {$this->last_name}";
     }
-
-    public function toArray()
-    {
-        $data = [
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-        ];
-
-        if (auth()->check() && auth()->user()->isAdmin()) {
-            $data['email'] = $this->email;
-        }
-
-        return $data;
-    }
 }

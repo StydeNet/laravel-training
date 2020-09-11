@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -18,22 +19,16 @@ Route::middleware('auth:api')->group(function () {
     Route::get('users', function () {
         $users = User::all();
 
-        if (auth()->user()->isAdmin()) {
-            $users->makeVisible('email');
-        }
-
-        return response([
-            'data' => $users,
-        ]);
+        return new \App\Http\Resources\Users($users);
     });
 
     Route::get('user/{user}', function (User $user) {
-        if (auth()->user()->isAdmin()) {
-            $user->makeVisible('email');
-        }
+        return new UserResource($user);
+    });
 
-        return response([
-            'data' => $user,
-        ]);
+    Route::get('paged-users', function () {
+        $users = User::paginate();
+
+        return new \App\Http\Resources\Users($users);
     });
 });
