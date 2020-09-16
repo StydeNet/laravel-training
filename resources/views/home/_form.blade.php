@@ -1,6 +1,5 @@
 <form method="get"
     class="flex flex-col">
-
     @csrf
 
     <label for="name" class="font-semibold mb-1">Name</label>

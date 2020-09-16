@@ -1,7 +1,7 @@
-<pre style="margin:0;" class="h-full w-1/2 bg-gray-300 rounded-lg overflow-hidden"><code class="language-html">
+<pre style="margin:0;" class="h-full w-full bg-gray-300 rounded-lg overflow-hidden"><code class="language-html">
 
 
 
-{!! e(view('home._form')->render()) !!}</code>
+{!! isset($blade)  ? e(file_get_contents(resource_path('views/home/_form.blade.php'))) : e(view('home._form')->render()) !!}</code>
 
 </pre>
