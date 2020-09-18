@@ -11,41 +11,18 @@
 |
 */
 
-use App\User;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('home.index');
-});
+Route::redirect('/', '/user');
 
-Route::get('/user', function (Illuminate\Http\Request $request) {
-    $query = User::query();
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
-    if ($request->has('search')) {
-        $query->where('name', 'like', "%{$request->get('search')}%")
-            ->orWhere('email', 'like', "%{$request->get('search')}%");
-    }
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
 
-    return view('user.index', ['users' => $query->simplePaginate(10)]);
-});
+Route::get('/user/{user}', [UserController::class, 'edit'])->name('user.edit');
 
-Route::get('/user/create', function () {
-    return view('user.create');
-});
+Route::put('user/{user}', [UserController::class, 'update'])->name('user.update');
 
-Route::post('/user', function (Illuminate\Http\Request $request) {
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required',
-        'password' => 'required|confirmed',
-    ]);
+Route::post('/user', [UserController::class, 'store'])->name('user.store');
 
-    User::create($request->only('name', 'email', 'password'));
-
-    return redirect()->to('/user');
-})->name('user.store');
-
-Route::delete('/user/{user}', function (User $user) {
-    $user->delete();
-
-    return redirect('/user');
-})->name('user.delete');
+Route::delete('/user/{user}', [UserController::class, 'delete'])->name('user.delete');

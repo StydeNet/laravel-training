@@ -1,9 +1,13 @@
 <div class="container mx-auto">
-    <div class="flex justify-end">
+    <div class="flex justify-between items-center">
+
         <form method="GET" class="flex py-4">
             <input type="text" name="search" placeholder="Search..." value="{{ request()->get('search') }}" aria-label="Search" class="px-4 bg-gray-100 text-gray-700 rounded-md focus:bg-white border border-gray-300 mr-4">
             <button type="submit" class="px-4 py-2 bg-blue-500 text-blue-100 rounded-md hover:bg-blue-600">Search</button>
         </form>
+
+        <a href="{{ route('user.create') }}" class="px-4 py-2 bg-green-500 text-green-100 rounded-md hover:bg-green-600">Add</a>
+
     </div>
     <table class="w-full rounded-lg border-gray-300 border">
         <thead class="bg-gray-100">
@@ -18,8 +22,9 @@
             <tr class="{{ $loop->iteration % 2 === 0 ? 'bg-gray-100' : 'bg-white' }}">
                 <td class="py-1 px-4 text-gray-800">{{ $user->name }}</td>
                 <td class="py-1 px-4 text-gray-800">{{ $user->email }}</td>
-                <td class="py-1 px-4 text-gray-800">
-                    <form action="{{route('user.delete', ['user' => $user->id])}}" method="POST">
+                <td class="py-1 px-4 text-gray-800 flex">
+                    <a href="{{ route('user.edit', ['user' => $user->id])  }}" class="mr-2 px-2 py-1 text-sm text-red-100 bg-blue-500 hover:bg-blue-600 rounded-md">Edit</a>
+                    <form action="{{ route('user.delete', ['user' => $user->id]) }}" method="POST">
                         @method('delete')
                         @csrf
                         <button type="submit" class="px-2 py-1 text-sm text-red-100 bg-red-500 hover:bg-red-600 rounded-md">Delete</button>
